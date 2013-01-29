@@ -1,13 +1,11 @@
 DemoApp::Application.routes.draw do
-  get "pages/home"
-
-  get "pages/contact"
+  
+  match '/contact', :to => 'pages#contact'
 
   resources :microposts
-
-
   resources :users
 
+ root :to => 'pages#home'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
