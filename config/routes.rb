@@ -1,11 +1,15 @@
 DemoApp::Application.routes.draw do
+
   get "users/new"
   
   match '/contact', :to => 'pages#contact'
   match '/signup', :to => 'users#new'
+  match '/signin',  :to => 'sessions#new'
+  match '/signout', :to => 'sessions#destroy'
   
   resources :microposts
   resources :users
+  resources :sessions, :only => [:new, :create, :destroy]
 
  root :to => 'pages#home'
 
