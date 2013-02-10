@@ -5,7 +5,12 @@
       <li><%= link_to "Accueil", root_path %></li>
       <li><%= link_to "Aide", '#' %></li>
       <% if signed_in? %>
-        <li><%= link_to "DŽconnexion", signout_path, :method => :delete %></li>
+      <li><%= link_to "Utilisateurs", users_path %></li>
+      <li><%= link_to "Profil", current_user %></li>
+      <li><%= link_to "Reglages", edit_user_path(current_user) %></li>
+      <% end %>
+      <% if signed_in? %>
+        <li><%= link_to "Deconnexion", signout_path, :method => :delete %></li>
       <% else %>
         <li><%= link_to "S'identifier", signin_path %></li>
       <% end %>

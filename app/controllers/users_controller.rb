@@ -1,7 +1,13 @@
 class UsersController < ApplicationController
   # GET /users
   # GET /users.json
+  
+  before_filter :authenticate, :only => [:index, :edit, :update, :destroy]
+  before_filter :correct_user, :only => [:edit, :update]
+  before_filter :admin_user,   :only => :destroy
+    
   def index
+    @titre = "Tous les utilisateurs"
     @users = User.all
 
     respond_to do |format|
@@ -78,10 +84,26 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
+    flash[:success] = "Utilisateur supprimŽ."
 
     respond_to do |format|
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
   end
+  
+  private
+
+    def authenticate
+      deny_access unless signed_in?
+    end
+    
+    def admin_user
+      redirect_to(root_path) unless current_user.admin?
+    end
+    
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
+    end
 end
