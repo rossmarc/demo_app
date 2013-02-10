@@ -29,7 +29,11 @@ module SessionsHelper
   def deny_access
     redirect_to signin_path, :notice => "Merci de vous identifier pour rejoindre cette page."
   end
- 
+  
+  def authenticate
+    deny_access unless signed_in?
+  end
+
  private
 
   def user_from_remember_token

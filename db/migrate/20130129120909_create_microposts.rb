@@ -5,6 +5,11 @@ class CreateMicroposts < ActiveRecord::Migration
       t.integer :user_id
 
       t.timestamps
-    end
+    end 
+    add_index :microposts, :user_id
+  end
+  
+  def self.down
+    drop_table :microposts
   end
 end
